@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Stack;
-
+//Data structures used are ArrayList, to stored an easily re-sizable list of visited states...
+//...stack is used to store list of nodes that still need to be visited...
+//...Node is a data structure made for this program that stores volumes in a state as a tuple
 public class WaterDFS {
 	public static ArrayList<String> visited = new ArrayList<String>();
 	public static int nodesTraversed = 0;
@@ -29,7 +31,7 @@ public class WaterDFS {
 		
 		public int capacity;
 		public int volume;
-		
+		//set capacity of jug to user input, and initial volume to zero
 		public jug(int cap) {
 			this.capacity = cap;
 			this.volume = 0;
@@ -67,10 +69,10 @@ public class WaterDFS {
 			addState(newNode);
 		}
 	}
-	//function to check if state has already been visited, and if not then add to the stack
+	//function to check if state in stack or visited, and if not then add to the stack
 	public static void addState(Node node) {
 		String formatted = node.toString();
-		if (!visited.contains(formatted)) {
+		if (!visited.contains(formatted) && !stack.contains(node)) {
 			stack.push(node);
 		}
 		//Reset volumes to initial volumes for that state so each function can be carried out for the state
@@ -86,10 +88,13 @@ public class WaterDFS {
 		
 		//Request and read user input for the capacities for each jug
 		Scanner sc = new Scanner(System.in);
-        System.out.println("Enter the positive capacities of the 3 jugs, press enter after each capacity: ");
+        System.out.println("Enter the positive capacities of the 3 jugs, press enter after each capacity.");
         // read the maximum capacity of jugs
+        System.out.print("Capacity of jug A: ");
         int capA = sc.nextInt();
+        System.out.print("Capacity of jug B: ");
         int capB = sc.nextInt();
+        System.out.print("Capacity of jug C: ");
         int capC = sc.nextInt();
         
         sc.close();
@@ -110,6 +115,7 @@ public class WaterDFS {
         while (!stack.isEmpty()) {
         	//Pop top item from stack and convert into readable string
         	Node node = stack.pop();
+        	
         	String formatted = node.toString();
         	//If state has not been visited, then add to visited list and generate all possible child states
         	if (!visited.contains(formatted)) {
